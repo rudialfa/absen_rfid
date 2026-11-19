@@ -6,8 +6,9 @@ plugins {
 
 android {
     namespace = "com.sekolah.absensi"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+  compileSdkVersion 36 
+    // ndkVersion "27.0.12077973"
+    ndkVersion "28.0.12433566"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -19,10 +20,10 @@ android {
         applicationId = "com.sekolah.absensi"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        minSdk = 24
+        targetSdk = 36
+        versionCode = 1
+        versionName = "1.0.0"
     }
 
     buildTypes {
