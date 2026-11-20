@@ -4,10 +4,11 @@ class Variables {
   static const String appName = 'Absensi Pintar';
 
   // Local development
-  // static const String baseUrl = 'http://192.168.1.82:8000';
+  // HP asli : IP laptop dari `ipconfig`. Emulator : http://10.0.2.2:8000
+  static const String baseUrl = 'http://192.168.1.137:8000';
 
   // Production
-  static const String baseUrl = 'https://absen.milosgo.com';
+  // static const String baseUrl = 'https://absen.milosgo.com';
 
   // Reverb (local)
   static const String reverbAppKey = '6sddmq248tmzwd7ness3';
@@ -15,7 +16,7 @@ class Variables {
   static const int reverbPort = 8080;
   static const String reverbScheme = 'http';
 
-  // Reverb (production)
+  // // Reverb (production)
   // static const String reverbAppKey = '6sddmq248tmzwd7ness3';
   // static const String reverbHost = 'absen.milosgo.com';
   // static const int reverbPort = 443;
