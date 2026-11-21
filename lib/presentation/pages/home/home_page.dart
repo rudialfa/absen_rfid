@@ -1,6 +1,7 @@
 import 'package:absensi/core/core.dart';
 import 'package:absensi/presentation/bloc/auth/auth_bloc.dart';
 import 'package:absensi/presentation/pages/settings/settings_page.dart';
+import 'package:absensi/presentation/pages/student/student_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -54,15 +55,22 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               const SpaceHeight(24),
-              if (user?.isAdmin ?? false)
+              if (user?.isAdmin ?? false) ...[
+                _MenuTile(
+                  icon: Icons.badge_outlined,
+                  title: 'Murid dan kartu',
+                  subtitle: 'Tambah murid, daftarkan kartu, ganti kartu hilang',
+                  onTap: () => context.push(const StudentListPage()),
+                ),
+                const SpaceHeight(12),
                 _MenuTile(
                   icon: Icons.settings_outlined,
                   title: 'Setelan perangkat',
                   subtitle:
                       'Jam masuk, batas terlambat, jam pulang, cooldown, teks LCD',
                   onTap: () => context.push(const SettingsPage()),
-                )
-              else
+                ),
+              ] else
                 const Text(
                   'Dashboard untuk peran ini menyusul di tahap berikutnya.',
                   textAlign: TextAlign.center,
