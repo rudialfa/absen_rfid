@@ -2,10 +2,12 @@ import 'package:absensi/core/core.dart';
 import 'package:absensi/data/datasources/auth_local_datsource.dart';
 import 'package:absensi/data/datasources/auth_remote_datasource.dart';
 import 'package:absensi/data/datasources/class_remote_datasource.dart';
+import 'package:absensi/data/datasources/device_remote_datasource.dart';
 import 'package:absensi/data/datasources/settings_remote_datasource.dart';
 import 'package:absensi/data/datasources/student_remote_datasource.dart';
 import 'package:absensi/presentation/bloc/auth/auth_bloc.dart';
 import 'package:absensi/presentation/bloc/class/class_bloc.dart';
+import 'package:absensi/presentation/bloc/device/device_bloc.dart';
 import 'package:absensi/presentation/bloc/settings/settings_bloc.dart';
 import 'package:absensi/presentation/bloc/student/student_bloc.dart';
 import 'package:absensi/presentation/pages/auth/login_page.dart';
@@ -38,6 +40,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ClassBloc(ClassRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => DeviceBloc(DeviceRemoteDatasource()),
         ),
       ],
       child: MaterialApp(

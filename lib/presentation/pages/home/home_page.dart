@@ -1,5 +1,6 @@
 import 'package:absensi/core/core.dart';
 import 'package:absensi/presentation/bloc/auth/auth_bloc.dart';
+import 'package:absensi/presentation/pages/device/device_list_page.dart';
 import 'package:absensi/presentation/pages/settings/settings_page.dart';
 import 'package:absensi/presentation/pages/student/student_list_page.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +62,13 @@ class HomePage extends StatelessWidget {
                   title: 'Murid dan kartu',
                   subtitle: 'Tambah murid, daftarkan kartu, ganti kartu hilang',
                   onTap: () => context.push(const StudentListPage()),
+                ),
+                const SpaceHeight(12),
+                _MenuTile(
+                  icon: Icons.memory,
+                  title: 'Perangkat (ESP32)',
+                  subtitle: 'Tambah perangkat, device key, ganti nama, hapus',
+                  onTap: () => context.push(const DeviceListPage()),
                 ),
                 const SpaceHeight(12),
                 _MenuTile(
