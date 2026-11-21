@@ -284,12 +284,11 @@ class _Login implements AuthEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Login &&
-            const DeepCollectionEquality().equals(other.request, request));
+            (identical(other.request, request) || other.request == request));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(request));
+  int get hashCode => Object.hash(runtimeType, request);
 
   @override
   String toString() {
@@ -316,10 +315,10 @@ class __$LoginCopyWithImpl<$Res> implements _$LoginCopyWith<$Res> {
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? request = freezed,
+    Object? request = null,
   }) {
     return _then(_Login(
-      freezed == request
+      null == request
           ? _self.request
           : request // ignore: cast_nullable_to_non_nullable
               as LoginRequestModel,

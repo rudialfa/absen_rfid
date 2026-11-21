@@ -1,5 +1,6 @@
 import 'package:absensi/core/core.dart';
 import 'package:absensi/presentation/bloc/auth/auth_bloc.dart';
+import 'package:absensi/presentation/pages/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,12 +28,12 @@ class HomePage extends StatelessWidget {
             orElse: () => null,
           );
 
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+          return ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
+              Column(
                 children: [
+                  const SpaceHeight(8),
                   const Icon(
                     Icons.verified_user,
                     size: 64,
@@ -50,16 +51,59 @@ class HomePage extends StatelessWidget {
                   Text(user?.email ?? ''),
                   const SpaceHeight(12),
                   Chip(label: Text(user?.roleLabel ?? '-')),
-                  const SpaceHeight(24),
-                  const Text(
-                    'Dashboard untuk peran ini menyusul di tahap berikutnya.',
-                    textAlign: TextAlign.center,
-                  ),
                 ],
               ),
-            ),
+              const SpaceHeight(24),
+              if (user?.isAdmin ?? false)
+                _MenuTile(
+                  icon: Icons.settings_outlined,
+                  title: 'Setelan perangkat',
+                  subtitle:
+                      'Jam masuk, batas terlambat, jam pulang, cooldown, teks LCD',
+                  onTap: () => context.push(const SettingsPage()),
+                )
+              else
+                const Text(
+                  'Dashboard untuk peran ini menyusul di tahap berikutnya.',
+                  textAlign: TextAlign.center,
+                ),
+            ],
           );
         },
+      ),
+    );
+  }
+}
+
+class _MenuTile extends StatelessWidget {
+  const _MenuTile({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: AppColors.stroke),
+      ),
+      child: ListTile(
+        leading: Icon(icon, color: AppColors.primary),
+        title: Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.w700),
+        ),
+        subtitle: Text(subtitle),
+        trailing: const Icon(Icons.chevron_right),
+        onTap: onTap,
       ),
     );
   }

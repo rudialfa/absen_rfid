@@ -22,6 +22,7 @@ class ApiHelper {
   static const secureError =
       'Koneksi aman ke server gagal. Cek alamat dan sertifikat server.';
   static const badResponse = 'Server mengirim jawaban yang tidak dikenali.';
+  static const notFound = 'Data tidak ditemukan.';
 
   /// Terpicu saat server menolak token yang sedang dipakai (401).
   /// AuthBloc mendengarkan ini supaya aplikasi otomatis kembali ke login.
@@ -91,7 +92,8 @@ class ApiHelper {
     }
   }
 
-  /// Pesan untuk pengguna. Detail error server (misalnya SQL) tidak ditampilkan.
+  /// Pesan untuk pengguna. Detail error server (misalnya SQL atau nama model)
+  /// tidak ditampilkan.
   static String errorMessage(http.Response res) {
     final s = res.statusCode;
     if (s == 429) {
@@ -99,15 +101,22 @@ class ApiHelper {
     }
     if (s >= 500) return 'Terjadi kesalahan di server (HTTP $s).';
 
+    String? message;
+    var hasCode = false;
     try {
       final d = jsonDecode(utf8.decode(res.bodyBytes));
-      if (d is Map &&
-          d['message'] is String &&
-          (d['message'] as String).isNotEmpty) {
-        return d['message'] as String;
+      if (d is Map) {
+        final m = d['message'];
+        if (m is String && m.isNotEmpty) message = m;
+        hasCode = d['code'] is String;
       }
     } catch (_) {}
 
+    // 404 bawaan Laravel memuat nama model dan tidak punya `code`.
+    // Jawaban 404 dari controller kita selalu membawa `code`.
+    if (s == 404 && !hasCode) return notFound;
+
+    if (message != null) return message;
     return 'Permintaan ditolak (HTTP $s).';
   }
 
